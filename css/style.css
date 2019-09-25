@@ -1,0 +1,66 @@
+
+
+/**** ADD YOUR STYLES ****/
+
+/****************/
+/*   BAR-CHART  */
+/****************/
+.rectangle {
+	fill: steelblue;
+}
+.rectangle:hover {
+	fill: orange;
+}
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+/****************/
+/*Sunburst-CHART*/
+/****************/
+body {
+  font-family: Sans-serif;
+  font-size: 11px;
+}
+
+.slice {
+  cursor: pointer;
+}
+
+.slice .main-arc {
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+.slice .hidden-arc {
+  fill: none;
+}
+
+.slice text {
+  pointer-events: none;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+/****************/
+/*WorldMap-CHART*/
+/****************/
+div.worldMap {
+  margin: 0px;
+  overflow: hidden;
+}
+
+
+.country {
+  stroke: black;
+  stroke-width: 0.2px;
+}
+
+.country:hover {
+    fill: red;
+}

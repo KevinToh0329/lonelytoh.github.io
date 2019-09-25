@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <title>D3 Page Template</title>
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/style.css">
+            <script src="http://d3js.org/d3.v4.min.js"></script>
+            <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+            <script src="https://d3js.org/topojson.v2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+            <center><h1>World Bank Data</h1></center>
+        </head>
+        <body>
+        <div class="container">
+            <center><h4>Bar Graph</h4></center>
+            <div class="row">
+                <div class="col-4">
+                    <div id= year>Filter by Year :
+                        <select id="dropdownyear">
+                            <option value="2010" >2010</option>
+                            <option value="2011" >2011</option>
+                            <option value="2012" >2012</option>
+                            <option value="2013" >2013</option>
+                            <option value="2014" >2014</option>
+                            <option value="2015" >2015</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-4">
+                    <div id= map>Filter by Region :
+                        <select id="dropdownregion">
+                            <option value="Asia">Asia</option>
+                            <option value="Americas">Americas</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Oceania">Oceania</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div id= drop>Filter by Category : 
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="bargraph">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <center>
+                    <h4>World Map Population</h4>
+                    </center>
+                    <div id="worldMap" align="center"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <center>
+                    <h4>Sun Burst Graph</h4>
+                    </center>
+                    <div id="sunburst">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            d3.csv("data/CombineData.csv", function(error,data){
+                if (error) throw error;
+                data.forEach(function(d){
+                    d.Population = +d.Population;
+                    d.Agriculture = +d.Agriculture;
+                    d.Industry = +d.Industry;
+                    d.Services = +d.Services;
+                    d.Deathrate = +d.Deathrate;
+                    d.Birthrate = +d.Birthrate;
+                    d.Employmentcount = +d.Employmentcount;
+                    d.Unemploymentcount = +d.Unemploymentcount;
+                });
+                oridata = data.filter(function(d){return d.Year == 2010});
+                regiondata = oridata.filter(function(d){return d.Region == "Asia"});
+                draw(oridata);
+                makegraph(regiondata);
+                makesunbrust(oridata);
+
+            var selector = d3.select("#year").select('select')
+                .on("change", function(d){
+                year = d3.select('#dropdownyear').node().value;
+                region = d3.select('#dropdownregion').node().value;
+                filterdata = data.filter(function(d){return d.Year == year});
+                regiondata = filterdata.filter(function(d){return d.Region == region});
+                draw(filterdata);
+                makegraph(regiondata);
+                makesunbrust(filterdata);
+            });
+
+            var selector1 = d3.select("#map").select('select')
+                .on("change", function(d){
+                year = d3.select('#dropdownyear').node().value;
+                region = d3.select('#dropdownregion').node().value;
+                filterdata = data.filter(function(d){return d.Year == year});
+                regiondata = filterdata.filter(function(d){return d.Region == region});
+                draw(filterdata);
+                makegraph(regiondata);
+                makesunbrust(filterdata);
+            });
+ 
+        });
+            
+        </script>
+        <script src="js/WorldMap2.js"></script>
+        <script src="js/sunburst.js"></script>
+        <script src="js/main.js"></script>
+        </body>
+</html>
